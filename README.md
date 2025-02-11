@@ -1,8 +1,23 @@
 # Computer Vision
 Contains all files relating to computer vision, including trained models, snapscripts, and teleop examples. Targeted toward Limelight 3A camera, but includes webcam based code.
 ## Limelight
-
-This repository contains the public FTC SDK for the INTO THE DEEP (2024-2025) competition season.
+This folder is specific to the Limelight 3A camera for FTC. The folder contains files relating to the camera and its operation.
+* CAD Files - Contains and CAD for the camera and/or mounting options
+* LL Models - Contains trained neural networks that successfully worked with LL
+* Python Snapscripts - Contains Python files for snapscripts, may be split into season-based folders
 
 ## Neural Networks
+This folder is for any files relating to neural networks in general, regardless of compatibility with LL. 
+* Data Sets - Contains any dataset files for NN
+* Trained Models - Contains trained model files, regardless of compatibility with LL
+
+## Vision OpModes
+This folder contains Java code and examples which utilize vision. This can include but is not limited to Limelight Opmodes, Webcam Opmodes, and April Tag OpModes
+* Limelight 3A - Contains java which uses the LL 3A
+* Webcam - Contains Opmodes which utilize a logitech (or generic) USB camera
+
+## Webcam
+This folder contains files relating to a logitech, or generic, USB webcam. This folder includes CAD for specific camera models and their mounting options, and includes any Python Code written for USB webcams.
+* CAD Files - Contains CAD for cameras, mounting options, etc. All Files must be named after the camera brand and model
+* Python Code - Contains python which is written to be used with webcams.
 
