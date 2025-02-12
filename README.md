@@ -1,5 +1,5 @@
 # Computer Vision
-Contains all files relating to computer vision, including trained models, snapscripts, and teleop examples. Targeted toward Limelight 3A camera, but includes webcam based code.
+Contains all files relating to computer vision, including trained models, snapscripts, and teleop examples. This repository is NOT meant to be cloned to any IDE. The repository contains numerous image and CAD files, since it is being used as cloud storage, not as a version control system.
 ## April Tags
 This folder is for all files relating to April Tags, including 3D localization using mega tag 2.
 * Field Maps - Contains files for field maps, the Mega Tag 2 protocol for LL uses field maps for live rendering of the field
