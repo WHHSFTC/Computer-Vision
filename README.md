@@ -1,5 +1,10 @@
 # Computer Vision
 Contains all files relating to computer vision, including trained models, snapscripts, and teleop examples. Targeted toward Limelight 3A camera, but includes webcam based code.
+## April Tags
+This folder is for all files relating to April Tags, including 3D localization using mega tag 2.
+* Field Maps - Contains files for field maps, the Mega Tag 2 protocol for LL uses field maps for live rendering of the field
+* OpModes - OpModes which utilize April tags, mostly the FTC-provided examples
+* Tag Pictures - Actual photos of tags
 ## Limelight
 This folder is specific to the Limelight 3A camera for FTC. The folder contains files relating to the camera and its operation.
 * CAD Files - Contains and CAD for the camera and/or mounting options
