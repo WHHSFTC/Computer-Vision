@@ -12,9 +12,9 @@ This folder is specific to the Limelight 3A camera for FTC. The folder contains 
 * Python Snapscripts - Contains Python files for snapscripts, may be split into season-based folders
 
 ## Neural Networks
-This folder is for any files relating to neural networks in general, regardless of compatibility with LL. 
+This folder is for any files relating to neural networks that are not for LL. 
 * Data Sets - Contains any dataset files for NN
-* Trained Models - Contains trained model files, regardless of compatibility with LL
+* Trained Models - Contains trained model files not compatible with LL
 
 ## Vision OpModes
 This folder contains Java code and examples which utilize vision. This can include but is not limited to Limelight Opmodes, Webcam Opmodes, and April Tag OpModes
