@@ -20,7 +20,11 @@ while True:
     low_threshold = 60
     high_threshold = 100
 
-    edges = cv.Canny(mask, low_threshold, high_threshold)
+    kernel = np.ones((3,3))
+    erosion = cv.morphologyEx(mask, kernel = kernel, op = cv.MORPH_OPEN)
+
+    edges = cv.Canny(erosion, low_threshold, high_threshold)
+   
     contours, _ = cv.findContours(edges, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
     largestContour = np.array([[]])
