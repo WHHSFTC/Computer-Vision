@@ -19,7 +19,7 @@ public class snapTism extends LinearOpMode {
     private double tx, ty; // Vision variables
     private double targetAlignThreshold = 10.0;
     private double moveSpeed = 0.2;
-    private double[] pythonOutputs = new double[32];
+    private double[] pythonOutputs = new double[8];
     private DcMotor leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive;
     private Servo wrist;
 
@@ -45,39 +45,38 @@ public class snapTism extends LinearOpMode {
         while (opModeIsActive()) {
             LLResult result = limelight.getLatestResult();
             // Getting numbers from Python
-            // Format for python output: llpython = [Sample Detected?, x, y, w, h, Orientation (1 for H, 0 for V), randint, randint]
+            // Format for python output: llpython = [Sample Detected?, x, y, w, h, rotation, randint, randint]
             pythonOutputs = result.getPythonOutput();
             if (pythonOutputs != null && pythonOutputs.length > 0) {
                 telemetry.addData("Python outputs: \n", Arrays.toString(pythonOutputs));
             }
             if (gamepad1.right_trigger > 0.5) {
                 alignWithTarget(); // Align with target
-                telemetry.addData("IN IF", 0);
             } else {
                 manualDrive(); // Manual drive mode
             }
-            if (gamepad1.x) limelight.pipelineSwitch(1);
-            else if (gamepad1.y) limelight.pipelineSwitch(7);
-            else if (gamepad1.b) limelight.pipelineSwitch(2);
+            if (gamepad1.x) limelight.pipelineSwitch(1); //Blue
+            else if (gamepad1.y) limelight.pipelineSwitch(7); // Yellow
+            else if (gamepad1.b) limelight.pipelineSwitch(2); //Red
             telemetry.update();
         }
     }
 
-    private void alignWithTarget() {
-        if (tx > targetAlignThreshold) {
-            robotDrive(moveSpeed, -moveSpeed); // Turn right
-        } else if (tx < -targetAlignThreshold) {
-            robotDrive(-moveSpeed, moveSpeed); // Turn lefts
-        } else {
-            robotDrive(-moveSpeed, -moveSpeed);
+    private int alignWithTarget() {
+        if(pythonOutputs[0] == 1){
+            if (pythonOutputs[1] > 640.0) {
+                robotDrive(-0.05, 0, 0);
+            } else if (pythonOutputs[1] < 640.0) {
+                robotDrive(0.05, 0, 0);
+            }
+            if (pythonOutputs[2] > 480.0) {
+                robotDrive(0.0, 0.05, 0);
+            } else if (pythonOutputs[2] < 480.0) {
+                robotDrive(0.0, -0.05, 0);
+            }
+            if(pythonOutputs[0]==0){return 0;}
         }
-        if (pythonOutputs[5] == 0.0) {
-            telemetry.addData("IN ALIGN", .5);
-            wrist.setPosition(0.5);
-        }else if (pythonOutputs[5] == 1.0){
-            telemetry.addData("IN ALIGN", 0);
-            wrist.setPosition(0.2);
-        }
+        return 0;
     }
 
     private void manualDrive() {
@@ -98,14 +97,20 @@ public class snapTism extends LinearOpMode {
         rightBackDrive.setPower(rightBackPower / max);
     }
 
-    private void robotDrive(double leftPower, double rightPower) {
-        leftFrontDrive.setPower(leftPower);
-        rightFrontDrive.setPower(rightPower);
-        leftBackDrive.setPower(leftPower);
-        rightBackDrive.setPower(rightPower);
-    }
+    private void robotDrive(double x, double y, double yaw) { // to optimize and shorten robot movement in the code
+        x = -x;
+        double leftFrontPower = x - y - yaw;
+        double rightFrontPower = x + y + yaw;
+        double leftBackPower = x + y - yaw;
+        double rightBackPower = x - y + yaw;
 
-    private void stopRobot() {
-        robotDrive(0, 0); // Stop all motion
+        double max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+        max = Math.max(max, Math.abs(leftBackPower));
+        max = Math.max(max, Math.abs(rightBackPower));
+
+        leftFrontDrive.setPower(leftFrontPower / max);
+        rightFrontDrive.setPower(rightFrontPower / max);
+        leftBackDrive.setPower(leftBackPower / max);
+        rightBackDrive.setPower(rightBackPower / max);
     }
 }
