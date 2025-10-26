@@ -1,4 +1,5 @@
 # By Team 6133 The NUTS!
+Created By:  Bahand Abdulrahman, Edwin Tenney, And Aditya Singh
 
 # Computer Vision
 Contains all files relating to computer vision, including trained models, snapscripts, and teleop examples. This repository is NOT tailored toward any IDE, but can be cloned to an IDE to allow for pushing files directly from any respecctive IDE.
